@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingApp", "RoutingApp\RoutingApp.csproj", "{3B365243-5DED-47AF-BF3D-54929FECD53E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingLib", "RoutingLib\RoutingLib.csproj", "{42B3C6A3-53E4-4167-8738-54B4EC7A1F5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingLib.Tests", "RoutingLib.Tests\RoutingLib.Tests.csproj", "{65AB42EA-0BF2-4361-8B4E-A16CC2155615}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingApp.Tests", "RoutingApp.Tests\RoutingApp.Tests.csproj", "{1A39E886-3FC7-4A41-AA02-854F601A60CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B365243-5DED-47AF-BF3D-54929FECD53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B365243-5DED-47AF-BF3D-54929FECD53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B365243-5DED-47AF-BF3D-54929FECD53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B365243-5DED-47AF-BF3D-54929FECD53E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B3C6A3-53E4-4167-8738-54B4EC7A1F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B3C6A3-53E4-4167-8738-54B4EC7A1F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B3C6A3-53E4-4167-8738-54B4EC7A1F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B3C6A3-53E4-4167-8738-54B4EC7A1F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65AB42EA-0BF2-4361-8B4E-A16CC2155615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65AB42EA-0BF2-4361-8B4E-A16CC2155615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65AB42EA-0BF2-4361-8B4E-A16CC2155615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65AB42EA-0BF2-4361-8B4E-A16CC2155615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A39E886-3FC7-4A41-AA02-854F601A60CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A39E886-3FC7-4A41-AA02-854F601A60CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A39E886-3FC7-4A41-AA02-854F601A60CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A39E886-3FC7-4A41-AA02-854F601A60CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
