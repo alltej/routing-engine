@@ -11,6 +11,7 @@ namespace RoutingLib.Engine
         {
             if (from == null) throw new ArgumentException($"{nameof(from)} node cannot be null");
             if (to == null) throw new ArgumentException($"{nameof(to)} node cannot be null");
+
             var routes = maxDistance.HasValue 
                 ? GetRoutesWithMaxDistance(from, to, maxDistance.Value, maxDepth) 
                 : GetRoutes(from, to, maxDepth);
@@ -90,7 +91,7 @@ namespace RoutingLib.Engine
             return route;
         }
 
-        private static IEnumerable<Path> FindAllPaths(Node from, Node to, int? depth = null)
+        private static IEnumerable<Path> FindAllPaths(Node from, Node target, int? depth = null)
         {
             var queue = new Queue<Tuple<Node, List<Node>>>();
             queue.Enqueue(new Tuple<Node, List<Node>>(from, new List<Node>()));
@@ -105,47 +106,55 @@ namespace RoutingLib.Engine
 
                 if (depth.HasValue)
                 {
-                    if (currentNodePaths.Count > depth.Value)
-                    {
-                        continue;
-                    }
+                    if (IsNumberOfDepthReached(depth.Value, currentNodePaths.Count)) continue;
                 }
                 else
                 {
                     //this if condition to check if the PATH (traverses) contains the currentNode
                     if (currentNodePaths.Contains(currentNode))
                     {
-                        if (currentNode == to)
+                        if (IsCurrentNodeATargetNode(currentNode, target))
                         {
-                            currentNodePaths.Add(currentNode);
-                            paths.Add(new Path(currentNodePaths));
+                            AddCurrentNodesEdgesToQueue(queue, currentNode, currentNodePaths);
 
-                            AddToQueue(currentNode.Edges, queue, currentNodePaths);
+                            paths.Add(new Path(currentNodePaths));
                         }
                         continue;
-                    }                   
+                    }
                 }
 
-                currentNodePaths.Add(currentNode);
+                AddCurrentNodesEdgesToQueue(queue, currentNode, currentNodePaths);
 
-                if (currentNode == to)
+                if (IsCurrentNodeATargetNode(currentNode, target))
                 {
                     paths.Add(new Path(currentNodePaths));
-
-                    AddToQueue(currentNode.Edges, queue, currentNodePaths);
-                    continue;
                 }
 
-                AddToQueue(currentNode.Edges, queue, currentNodePaths);
             }
 
-            if (from.Name == to.Name && paths.Any())
+            if (from.Name == target.Name && paths.Any())
                 paths.Remove(paths[0]);
 
             return paths;
         }
 
-        private static void AddToQueue(Dictionary<string, Edge> edges, Queue<Tuple<Node, List<Node>>> queue, List<Node> currentNodePaths)
+        private static bool IsCurrentNodeATargetNode(Node currentNode, Node targetNode)
+        {
+            return currentNode == targetNode;
+        }
+
+        private static void AddCurrentNodesEdgesToQueue(Queue<Tuple<Node, List<Node>>> queue, Node currentNode, List<Node> currentNodePaths)
+        {
+            currentNodePaths.Add(currentNode);
+            AddEdgesTargetNodeToQueue(queue, currentNode.Edges, currentNodePaths);
+        }
+
+        private static bool IsNumberOfDepthReached(int depth, int currentNodePathsCount)
+        {
+            return currentNodePathsCount > depth;
+        }
+
+        private static void AddEdgesTargetNodeToQueue(Queue<Tuple<Node, List<Node>>> queue, Dictionary<string, Edge> edges, List<Node> currentNodePaths)
         {
             foreach (var edge in edges)
             {
