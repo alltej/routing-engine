@@ -4,5 +4,6 @@
     {
         Route BuildRouteFor(params Node[] nodes);
         RouteResult GetRoutesBetween(Node @from, Node to, int? maxDepth = default(int?), int? maxDistance = default(int?));
+        RouteResult GetRoutesBetweenParallel(Node @from, Node to, int? maxDepth = default(int?), int? maxDistance = default(int?));
     }
 }

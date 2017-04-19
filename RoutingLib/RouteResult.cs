@@ -10,7 +10,7 @@ namespace RoutingLib
             Routes = routes.OrderBy(r => r.Cost).ToList();
         }
 
-        public List<Route> Routes { get; }
+        public IReadOnlyList<Route> Routes { get; }
 
         public int ShortestCost()
         {

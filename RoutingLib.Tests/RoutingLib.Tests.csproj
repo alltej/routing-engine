@@ -53,6 +53,8 @@
     <Compile Include="BaseTests.cs" />
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="GraphTests.cs" />
+    <Compile Include="PerfTests\BaseTests.cs" />
+    <Compile Include="PerfTests\GraphOutputTests.cs" />
     <Compile Include="RouteEngineTests.cs" />
     <Compile Include="NodeTests.cs" />
     <Compile Include="GraphOutputTests.cs" />

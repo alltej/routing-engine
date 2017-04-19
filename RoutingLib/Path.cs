@@ -4,11 +4,11 @@ namespace RoutingLib
 {
     public class Path
     {
-        public Path(IReadOnlyList<Node> nodeList)
+        public Path(List<Node> nodeList)
         {
             Nodes = nodeList;
         }
 
-        public IReadOnlyList<Node> Nodes { get; private set; }
+        public List<Node> Nodes { get; private set; }
     }
 }
