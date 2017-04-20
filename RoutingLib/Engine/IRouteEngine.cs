@@ -3,7 +3,8 @@
     public interface IRouteEngine
     {
         Route BuildRouteFor(params Node[] nodes);
-        RouteResult GetRoutesBetween(Node @from, Node to, int? maxDepth = default(int?), int? maxDistance = default(int?));
-        RouteResult GetRoutesBetweenParallel(Node @from, Node to, int? maxDepth = default(int?), int? maxDistance = default(int?));
+        RouteResult GetRoutes(Node from, Node to, int? maxCost = default(int?), int? maxDepth = default(int?));
+        RouteResult GetRoutesWithMaxDepth(Node from, Node to, int maxDepth);
+        RouteResult GetRoutesWithMaxCost(Node from, Node to, int maxCost);
     }
 }

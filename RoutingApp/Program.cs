@@ -110,20 +110,12 @@ namespace RoutingApp
             Console.WriteLine($"Enter full path to data file or hit enter to reload last data file: {_lastKnownFile}");
             TryReadLine(true, out args);
 
-            try
-            {
-                if (args.Length <= 0) return GraphFactory.BuildFromFile(_lastKnownFile);
+            if (args.Length <= 0) return GraphFactory.BuildFromFile(_lastKnownFile);
 
-                var fi = new FileInfo(args);
-                if (!fi.Exists) throw new ApplicationException("File does not exists");
-                _lastKnownFile = fi.FullName;
-                return GraphFactory.BuildFromFile(fi.FullName);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
+            var fi = new FileInfo(args);
+            if (!fi.Exists) throw new ApplicationException("File does not exists");
+            _lastKnownFile = fi.FullName;
+            return GraphFactory.BuildFromFile(fi.FullName);
         }
 
         private static void FindTotalDistance(CommandOptions opt, IRouteEngine routeEngine)
@@ -146,7 +138,7 @@ namespace RoutingApp
             TryReadLine(false, out cmdArgs);
             opt.SetCommandParams(cmdArgs.Split(','));
 
-            var result = routeEngine.GetRoutesBetween(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg));
+            var result = routeEngine.GetRoutes(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg));
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Shortest Route: {result.ShortestCost()}");
             Console.ResetColor();
@@ -164,7 +156,7 @@ namespace RoutingApp
             TryReadLine(false, out cmdArgs);
             opt.SetCommandParams(cmdArgs.Split(','));
 
-            Console.WriteLine("Enter max depth/stops: (eg. 4 or <=4 or <4 ");
+            Console.WriteLine("Enter max depth/stops: (eg. 4 or <=4 or <4 )");
             TryReadLine(true, out cmdArgs);
             int maxDepth;
             if (int.TryParse(cmdArgs, out maxDepth))
@@ -174,7 +166,7 @@ namespace RoutingApp
 
             var predicate = opt.SetMaxDepth(cmdArgs);
 
-            var result = routeEngine.GetRoutesBetween(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg), opt.MaxDepth);
+            var result = routeEngine.GetRoutes(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg), maxDepth: opt.MaxDepth);
 
             PrintOutput(result.Routes, predicate);
         }
@@ -186,7 +178,7 @@ namespace RoutingApp
             TryReadLine(false, out cmdArgs);
             opt.SetCommandParams(cmdArgs.Split(','));
 
-            Console.WriteLine("Enter max cost/distance: (eg. 30 <=30 or <30 ");
+            Console.WriteLine("Enter max cost/distance: (eg. 30 or <=30 or <30 )");
             TryReadLine(true, out cmdArgs);
             int maxCost;
             if (int.TryParse(cmdArgs, out maxCost))
@@ -196,7 +188,7 @@ namespace RoutingApp
 
             var predicate = opt.SetMaxCost(cmdArgs);
 
-            var result = routeEngine.GetRoutesBetween(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg), null, opt.MaxCost);
+            var result = routeEngine.GetRoutes(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg), maxCost: opt.MaxCost, maxDepth: null);
             PrintOutput(result.Routes, predicate);
         }
 
@@ -255,17 +247,18 @@ namespace RoutingApp
             //Console.WriteLine("Results:");
         }
 
-        private static void PrintOutput(IReadOnlyCollection<Route> pathOutput)
+        private static void PrintOutput(IReadOnlyCollection<Route> routes)
         {
             ConsoleOutputHeader();
+            var orderedRoutes = routes.OrderBy(r => r.Cost);
             int i = 0;
-            foreach (var tuple in pathOutput)
+            foreach (var tuple in orderedRoutes)
             {
                 i++;
                 Console.WriteLine($"{i}:  {tuple.PathString}; Cost: {tuple.Cost}; Stops: {tuple.Stops}");
             }
             Console.WriteLine();
-            Console.WriteLine($"Paths: {pathOutput.Count}");
+            Console.WriteLine($"Paths: {routes.Count}");
             Console.ResetColor();
         }
     }

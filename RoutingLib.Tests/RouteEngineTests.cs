@@ -15,7 +15,7 @@ namespace RoutingLib.Tests
             try
             {
                 var engine = new RouteEngine();
-                engine.GetRoutesBetween(null, Node.Create("A"));
+                engine.GetRoutes(null, Node.Create("A"));
             }
             catch (ArgumentException aex)
             {
@@ -33,7 +33,7 @@ namespace RoutingLib.Tests
             try
             {
                 var engine = new RouteEngine();
-                engine.GetRoutesBetween(Node.Create("A") , null);
+                engine.GetRoutes(Node.Create("A") , null);
             }
             catch (ArgumentException aex)
             {
@@ -44,6 +44,27 @@ namespace RoutingLib.Tests
                 Assert.Fail("should be an applicaiton exception. " + ex.Message);
             }
 
+        }
+
+        [TestMethod]
+        public void TargetDepthCalculatorTest_WithNullMaxDepth_ShouldBe_CalcDepth()
+        {
+            var depth = RouteEngine.CalculateTargetDepth(null, 60, 38, 13);
+            depth.Should().Be(13);
+        }
+
+        [TestMethod]
+        public void TargetDepthCalculatorTest_WithMaxDepth_LT_CalcDepth()
+        {
+            var depth = RouteEngine.CalculateTargetDepth(10, 60, 38, 13);
+            depth.Should().Be(10);
+        }
+
+        [TestMethod]
+        public void TargetDepthCalculatorTest_WithMaxDepth_GT_CalcDepth()
+        {
+            var depth = RouteEngine.CalculateTargetDepth(15, 60, 38, 13);
+            depth.Should().Be(13);
         }
         
     }

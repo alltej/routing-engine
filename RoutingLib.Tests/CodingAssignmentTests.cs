@@ -8,7 +8,7 @@ using RoutingLib.Tests.Extensions;
 namespace RoutingLib.Tests
 {
     [TestClass]
-    public class GraphOutputTests : BaseTests
+    public class CodingAssignmentTests : BaseTests
     {
         private readonly RouteEngine _routeEngine = new RouteEngine();
 
@@ -65,7 +65,7 @@ namespace RoutingLib.Tests
         [TestMethod]
         public void T06_NumberOfTrips_With_MaximumStops()
         {
-            var result = _routeEngine.GetRoutesBetween(C, C, 3);
+            var result = _routeEngine.GetRoutes(C, C, maxDepth: 3);
 
             PrintOutput(result.Routes);
 
@@ -76,7 +76,7 @@ namespace RoutingLib.Tests
         [TestMethod]
         public void T07_NumberOfTrips_With_ExactNumberOfStops()
         {
-            var result = _routeEngine.GetRoutesBetween(A, C, 4);
+            var result = _routeEngine.GetRoutes(A, C, maxDepth: 4);
 
             var routesW4Stops = result.Routes.Where(p => p.Stops == 4).ToList();
 
@@ -88,7 +88,7 @@ namespace RoutingLib.Tests
         [TestMethod]
         public void T08_LengthOf_ShortestRoute_A_to_C()
         {
-            var result = _routeEngine.GetRoutesBetween(A, C);
+            var result = _routeEngine.GetRoutes(A, C);
             PrintOutput(result.Routes);
             
             var shortestCost = result.ShortestCost();
@@ -98,7 +98,7 @@ namespace RoutingLib.Tests
         [TestMethod]
         public void T09_LengthOf_ShortestRoute_B_to_B()
         {
-            var result = _routeEngine.GetRoutesBetween(B, B);
+            var result = _routeEngine.GetRoutes(B, B);
             PrintOutput(result.Routes);
 
             var shortestCost = result.ShortestCost();
@@ -110,7 +110,7 @@ namespace RoutingLib.Tests
         {
             //1. get path with shortest cost
             var maxDistance = 30;
-            var result = _routeEngine.GetRoutesBetween(C, C, null, maxDistance);
+            var result = _routeEngine.GetRoutes(C, C, maxDistance, null);
 
             PrintOutput(result.Routes);
             Assert.AreEqual(9, result.Routes.Count);

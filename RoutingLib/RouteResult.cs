@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace RoutingLib
 {
@@ -7,14 +8,22 @@ namespace RoutingLib
     {
         public RouteResult(IEnumerable<Route> routes)
         {
-            Routes = routes.OrderBy(r => r.Cost).ToList();
+            //Routes = routes.OrderBy(r => r.Cost).ToList();
+            Routes = routes.ToList();
+            NumberOfRoutes = Routes.Count;
         }
+
+        public int NumberOfRoutes { get;}
 
         public IReadOnlyList<Route> Routes { get; }
 
         public int ShortestCost()
         {
-            return Routes.Min(cost => cost.Cost);
+            return Routes.Min(route => route.Cost);
+        }
+        public int ShortestDepth()
+        {
+            return Routes.Min(route => route.Stops);
         }
     }
 }
