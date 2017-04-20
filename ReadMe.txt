@@ -16,7 +16,7 @@ Instructions in building and running the app:
 
 1. Open RoutingEngine.sln in VS2015
 2. Build/Compile the solution in Release configuration.
-3. Find the RoutingApp.EXE file generated from step 2.
+3. Find the RoutingApp.EXE file generated from step 2 (~\RoutingEngine\RoutingApp\bin\Release\RoutingApp.exe)
 4. Double-click on the EXE file and a console window should display the following:
 
 ***************************************************************
@@ -31,13 +31,14 @@ Enter 9 to clear screen
 
 
 5. By default, the application is pre-loaded with graph data from RoutingData.txt file 
-   located in the application folder.
+   located in the application folder (~\RoutingEngine\RoutingApp\bin\Release\RoutingData.txt).
 
 6. To reload graph data from another file, enter '0' when prompted with the screen
-   in step 4. It will ask for path of file to be loaded. Please use same format as the
+   in step 4. It will ask for path of file to be loaded. Please use follow format as the
    sample data file (RoutingData.txt).
 
 7. Enter input data from console when prompted.
+   
 
 
 
