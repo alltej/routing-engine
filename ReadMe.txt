@@ -41,4 +41,6 @@ Enter 9 to clear screen
    
 
 
+   ****This solution was submitted by Allan Tejano for coding assignment/problem #1 (Trains) for Thoughtworks****
+
 
