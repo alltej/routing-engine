@@ -1,14 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RoutingLib
 {
-    public class Path
+    public class PathV1
     {
-        public Path(IReadOnlyList<Node> nodeList)
+        public PathV1(IReadOnlyList<Node> nodeList)
         {
             Nodes = nodeList;
         }
 
         public IReadOnlyList<Node> Nodes { get; private set; }
+    }
+
+    public class Path2
+    {
+        public Path2(List<Tuple<string, int>> nodeList)
+        {
+            Paths = nodeList;
+        }
+
+        public List<Tuple<string, int>> Paths { get; set; }
     }
 }
