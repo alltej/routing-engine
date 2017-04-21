@@ -9,9 +9,9 @@ namespace RoutingLib.Tests.Extensions
             return anInt;
         }
 
-        public static void Be(this int anInt, int actual)
+        public static void Be(this int anInt, int expected)
         {
-            Assert.AreEqual(anInt, actual);
+            Assert.AreEqual(expected, anInt);
         }
     }
     public static class StringExtension
@@ -21,9 +21,9 @@ namespace RoutingLib.Tests.Extensions
             return anInt;
         }
 
-        public static void Be(this string anInt, string actual)
+        public static void Be(this string aString, string expected)
         {
-            Assert.AreEqual(anInt, actual);
+            Assert.AreEqual(expected, aString);
         }
     }
     public static class BoolExtension
@@ -35,11 +35,11 @@ namespace RoutingLib.Tests.Extensions
 
         public static void IsTrue(this bool expected)
         {
-            Assert.AreEqual(expected, true);
+            Assert.IsTrue(expected);
         }
         public static void IsFalse(this bool expected)
         {
-            Assert.AreEqual(expected, false);
+            Assert.IsTrue(expected);
         }
     }
 }

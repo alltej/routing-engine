@@ -18,7 +18,7 @@ namespace RoutingApp
         {
             _graph = args.Length > 0 ? GraphFactory.BuildFromFile(args[0]) : GraphFactory.BuildFromFile();
 
-            var routeEngine = new RouteEngine();
+            var routeEngine = new RouteEngineV2();
 
             while (true)
             {
@@ -51,6 +51,9 @@ namespace RoutingApp
                             break;
                         case 5://available routes between two nodes with given distance
                             FindAvailableRoutes(opt, routeEngine);
+                            break;
+                        case 6://straight routes
+                            FindAvailableStraightRoutes(opt, routeEngine);
                             break;
                         case 9://available routes between two nodes with given distance
                             Console.Clear();
@@ -130,7 +133,7 @@ namespace RoutingApp
             PrintOutput(route);
         }
 
-        private static void FindLenghtOfShortestRoute(CommandOptions opt, RouteEngine routeEngine)
+        private static void FindLenghtOfShortestRoute(CommandOptions opt, IRouteEngine routeEngine)
         {
             string cmdArgs;
             ShowInstructionForFromAndToNodes();
@@ -191,6 +194,16 @@ namespace RoutingApp
             var result = routeEngine.GetRoutes(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg), maxCost: opt.MaxCost, maxDepth: null);
             PrintOutput(result.Routes, predicate);
         }
+        private static void FindAvailableStraightRoutes(CommandOptions opt, IRouteEngine routeEngine)
+        {
+            string cmdArgs;
+            ShowInstructionForFromAndToNodes();
+            TryReadLine(false, out cmdArgs);
+            opt.SetCommandParams(cmdArgs.Split(','));
+
+            var result = routeEngine.GetRoutes(_graph.FindNode(opt.StartArg), _graph.FindNode(opt.EndArg));
+            PrintOutput(result.Routes, null);
+        }
 
         private static void PrintOutput(IReadOnlyCollection<Route> routes, Func<Route, bool> predicate)
         {
@@ -226,6 +239,7 @@ namespace RoutingApp
             Console.WriteLine("Enter 3 to get # of trips specify # stop between two nodes");
             Console.WriteLine("Enter 4 to get length of shortest route between two nodes");
             Console.WriteLine("Enter 5 to get routes with specified distance");
+            Console.WriteLine("Enter 6 to get straight and unique routes");
             Console.WriteLine("Enter 9 to clear screen");
             Console.WriteLine("***************************************************************");
             Console.WriteLine();

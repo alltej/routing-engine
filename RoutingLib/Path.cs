@@ -13,9 +13,9 @@ namespace RoutingLib
         public IReadOnlyList<Node> Nodes { get; private set; }
     }
 
-    public class Path2
+    public class PathV2
     {
-        public Path2(List<Tuple<string, int>> nodeList)
+        public PathV2(List<Tuple<string, int>> nodeList)
         {
             Paths = nodeList;
         }

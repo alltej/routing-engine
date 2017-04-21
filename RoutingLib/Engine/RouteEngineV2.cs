@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RoutingLib.Engine
 {
-    public class RouteEngine : IRouteEngine
+    public class RouteEngineV2 : IRouteEngine
     {
         public RouteResult GetRoutes(Node from, Node to, int? maxCost = default(int?), int? maxDepth = default(int?))
         {
@@ -29,7 +29,6 @@ namespace RoutingLib.Engine
         {
             return GetRoutes(from, to, maxCost, null);
         }
-
         private List<Route> FindAllRoutesWithCost(Node from, Node to, int maxDistance, int? maxDepth)
         {
             var allRoutes = FindAllRoutes(from, to);
@@ -74,7 +73,7 @@ namespace RoutingLib.Engine
 
             foreach (var path in paths)
             {
-                var route = Route.CreateFromPath(path);
+                var route = Route.CreateFromTuples(path.Paths);
                 routes.Add(route);
             }
             return routes;
@@ -88,13 +87,12 @@ namespace RoutingLib.Engine
             return route;
         }
 
-        private static IEnumerable<PathV1> FindAllPaths(Node from, Node target, int? depth = null)
+        private static IEnumerable<PathV2> FindAllPaths(Node from, Node target, int? depth = null)
         {
-            var queue = new Queue<Tuple<Node, List<Node>>>();
-            queue.Enqueue(new Tuple<Node, List<Node>>(from, new List<Node>()));
+            var queue = new Queue<Tuple<Node, List<Tuple<string, int>>>>();
+            queue.Enqueue(new Tuple<Node, List<Tuple<string, int>>>(from, new List<Tuple<string, int>>()));
 
-            var paths = new List<PathV1>();
-
+            var paths = new List<PathV2>();
             while (queue.Any())
             {
                 var dequeuedTuple = queue.Dequeue();
@@ -108,27 +106,28 @@ namespace RoutingLib.Engine
                 else
                 {
                     //this if condition to check if the PATH (traverses) contains the currentNode
-                    if (currentNodePaths.Contains(currentNode))
+                    if (currentNodePaths.FirstOrDefault(c=> c.Item1 == currentNode.Name ) != null)
                     {
                         if (IsCurrentNodeTargetNode(currentNode, target))
                         {
-                            AddCurrentNodesEdgesToQueue(queue, currentNode, currentNodePaths);
+                            AddEdgesTargetNodeToQueueTuple(queue, currentNode, currentNodePaths);
 
-                            paths.Add(new PathV1(currentNodePaths));
+                            paths.Add(new PathV2(currentNodePaths));
                         }
                         continue;
                     }
                 }
 
-                AddCurrentNodesEdgesToQueue(queue, currentNode, currentNodePaths);
+                AddEdgesTargetNodeToQueueTuple(queue, currentNode, currentNodePaths);
 
                 if (IsCurrentNodeTargetNode(currentNode, target))
                 {
-                    paths.Add(new PathV1(currentNodePaths));
+                    var tuple = Tuple.Create(currentNode.Name, 0);
+                    var tuples = new List<Tuple<string, int>>(currentNodePaths) { tuple };
+                    paths.Add(new PathV2(tuples));
                 }
-                queue.TrimExcess();//fix the memory leak but causing the app to slow
             }
-            //queue.TrimExcess();
+            queue.TrimExcess();
             if (from.Name == target.Name && paths.Any())
                 paths.Remove(paths[0]);
 
@@ -140,24 +139,21 @@ namespace RoutingLib.Engine
             return currentNode == targetNode;
         }
 
-        private static void AddCurrentNodesEdgesToQueue(Queue<Tuple<Node, List<Node>>> queue, Node currentNode, List<Node> currentNodePaths)
-        {
-            currentNodePaths.Add(currentNode);
-            AddEdgesTargetNodeToQueue(queue, currentNode.Edges, currentNodePaths);
-        }
-
         private static bool IsNumberOfDepthReached(int depth, int currentNodePathsCount)
         {
             return currentNodePathsCount > depth;
         }
 
-        private static void AddEdgesTargetNodeToQueue(Queue<Tuple<Node, List<Node>>> queue, Dictionary<string, Edge> edges, List<Node> currentNodePaths)
+        private static void AddEdgesTargetNodeToQueueTuple(Queue<Tuple<Node, List<Tuple<string, int>>>> queue, Node currentNode, List<Tuple<string, int>> currentNodePaths)
         {
-            foreach (var edge in edges)
+            foreach (var edge in currentNode.Edges)
             {
-                queue.Enqueue(new Tuple<Node, List<Node>>(edge.Value.Target, new List<Node>(currentNodePaths)));
+                var tuple = Tuple.Create(currentNode.Name, edge.Value.Cost);
+                var tuples = new List<Tuple<string, int>>(currentNodePaths) {tuple};
+                queue.Enqueue(new Tuple<Node, List<Tuple<string, int>>>(edge.Value.Target, new List<Tuple<string, int>>(tuples)));
             }
         }
+
     }
 
 }

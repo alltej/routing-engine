@@ -6,33 +6,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RoutingLib.Engine;
 using RoutingLib.Tests.Extensions;
 
-namespace RoutingLib.Tests.PerfTests
+namespace RoutingLib.Tests.PerfTests.V1
 {
     [TestClass]
     public class GetRoutesBetweenTests : PerfBaseTests
     {
-        private readonly RouteEngine _routeEngine = new RouteEngine();
+        private readonly IRouteEngine _routeEngine = new RouteEngine();
 
 
         [TestMethod]
-        public void GetRoutesBetween_With_MaxDepth_And_MaxCost_A_V1()
-        {
-            var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutesV1(A, P, 60, 13);
-            watch.Stop();
-
-            var elapsed = watch.ElapsedMilliseconds;
-            Console.WriteLine($"ElapsedTime: {elapsed}");
-
-            PrintOutput(result.Routes);
-
-            result.NumberOfRoutes.Should().Be(58);
-            result.ShortestCost().Should().Be(38);
-            result.ShortestDepth().Should().Be(8);
-        }
-
-        [TestMethod]
-        public void GetRoutesBetween_With_MaxDepth_And_MaxCost_A_V2()
+        public void GetRoutesBetween_With_MaxDepth_And_MaxCost_A()
         {
             var watch = Stopwatch.StartNew();
             var result = _routeEngine.GetRoutes(A, P, 60, 13);
@@ -66,20 +49,7 @@ namespace RoutingLib.Tests.PerfTests
         }
 
         [TestMethod]
-        public void GetRoutesBetween_With_MaxCost_A_V1()
-        {
-            var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutesV1(A, P,60);
-            watch.Stop();
-
-            var elapsed = watch.ElapsedMilliseconds;
-            Console.WriteLine($"ElapsedTime: {elapsed}");
-
-            PrintOutput(result.Routes);
-        }
-
-        [TestMethod]
-        public void GetRoutesBetween_With_MaxCost_A_V2()
+        public void GetRoutesBetween_With_MaxCost_A()
         {
             var watch = Stopwatch.StartNew();
             var result = _routeEngine.GetRoutes(A, P,60);
@@ -91,11 +61,12 @@ namespace RoutingLib.Tests.PerfTests
             PrintOutput(result.Routes);
         }
 
+
         [TestMethod]
-        public void GetRoutesBetween_With_MaxCost_B_V1()
+        public void GetRoutesBetween_With_MaxCost_B()
         {
             var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutesV1(A, P,80);
+            var result = _routeEngine.GetRoutes(A, P,70);
             watch.Stop();
 
             var elapsed = watch.ElapsedMilliseconds;
@@ -106,33 +77,7 @@ namespace RoutingLib.Tests.PerfTests
 
 
         [TestMethod]
-        public void GetRoutesBetween_With_MaxCost_B_V2()
-        {
-            var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutes(A, P, 80);
-            watch.Stop();
-
-            var elapsed = watch.ElapsedMilliseconds;
-            Console.WriteLine($"ElapsedTime: {elapsed}");
-
-            PrintOutput(result.Routes);
-        }
-
-        [TestMethod]
-        public void GetRoutesBetween_With_MaxDepth_V1()
-        {
-            var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutesWithMaxDepthV1(A, P,13);
-            watch.Stop();
-
-            var elapsed = watch.ElapsedMilliseconds;
-            Console.WriteLine($"ElapsedTime: {elapsed}");
-
-            PrintOutput(result.Routes);
-        }
-
-        [TestMethod]
-        public void GetRoutesBetween_With_MaxDepth_V2()
+        public void GetRoutesBetween_With_MaxDepth()
         {
             var watch = Stopwatch.StartNew();
             var result = _routeEngine.GetRoutesWithMaxDepth(A, P,13);
@@ -144,21 +89,9 @@ namespace RoutingLib.Tests.PerfTests
             PrintOutput(result.Routes);
         }
 
-        [TestMethod]
-        public void GetRoutesBetween_NoMaxCost_NoMaxDepth_Specified_V1()
-        {
-            var watch = Stopwatch.StartNew();
-            var result = _routeEngine.GetRoutesV1(A, P);
-            watch.Stop();
-
-            var elapsed = watch.ElapsedMilliseconds;
-            Console.WriteLine($"ElapsedTime: {elapsed}");
-
-            PrintOutput(result.Routes);
-        }
 
         [TestMethod]
-        public void GetRoutesBetween_NoMaxCost_NoMaxDepth_Specified_V2()
+        public void GetRoutesBetween_NoMaxCost_NoMaxDepth_Specified()
         {
             var watch = Stopwatch.StartNew();
             var result = _routeEngine.GetRoutes(A, P);

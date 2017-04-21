@@ -71,9 +71,10 @@
     <Compile Include="BaseTests.cs" />
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="GraphTests.cs" />
+    <Compile Include="PerfTests\V2\GetRoutesBetweenTests.cs" />
     <Compile Include="RouteTests.cs" />
     <Compile Include="PerfTests\BaseTests.cs" />
-    <Compile Include="PerfTests\GetRoutesBetweenTests.cs" />
+    <Compile Include="PerfTests\V1\GetRoutesBetweenTests.cs" />
     <Compile Include="RouteEngineTests.cs" />
     <Compile Include="NodeTests.cs" />
     <Compile Include="CodingAssignmentTests.cs" />
