@@ -57,6 +57,20 @@ namespace RoutingLib.Tests.PerfTests.V2
             PrintOutput(result.Routes);
         }
 
+
+        [TestMethod]
+        public void GetRoutesBetween_With_MaxDepth()
+        {
+            var watch = Stopwatch.StartNew();
+            var result = _routeEngine.GetRoutesWithMaxDepth(A, P, 13);
+            watch.Stop();
+
+            var elapsed = watch.ElapsedMilliseconds;
+            Console.WriteLine($"ElapsedTime: {elapsed}");
+
+            PrintOutput(result.Routes);
+        }
+
         [TestMethod]
         public void GetRoutesBetween_With_MaxDepth_And_MaxCost_B()
         {
