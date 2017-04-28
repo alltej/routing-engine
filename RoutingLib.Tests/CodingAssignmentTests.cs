@@ -10,7 +10,8 @@ namespace RoutingLib.Tests
     [TestClass]
     public class CodingAssignmentTests : BaseTests
     {
-        private readonly RouteEngine _routeEngine = new RouteEngine();
+        //private readonly RouteEngine _routeEngine = new RouteEngine();
+        private readonly IRouteEngine _routeEngine = new RouteEngineV2();
 
         [TestMethod]
         public void T01_DistanceOfRoute_ABC()
