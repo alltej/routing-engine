@@ -61,6 +61,7 @@
     <Compile Include="Edge.cs" />
     <Compile Include="Engine\IRouteEngine.cs" />
     <Compile Include="Engine\RouteEngineV2.cs" />
+    <Compile Include="Engine\TargetDepthCalculator.cs" />
     <Compile Include="Factory\GraphFactory.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="Node.cs" />

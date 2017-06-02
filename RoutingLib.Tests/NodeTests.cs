@@ -8,7 +8,7 @@ namespace RoutingLib.Tests
     [TestClass]
     public class NodeTests : BaseTests
     {
-        private readonly RouteEngine _routeEngine = new RouteEngine();
+        private readonly IRouteEngine _routeEngine = new RouteEngineV2();
 
         [TestMethod]
         public void Node_EdgeTarget_Cannot_Appear_MoreThan_Once()

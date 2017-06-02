@@ -41,7 +41,7 @@ namespace RoutingLib.Engine
             //calculate depth of the path with the shortest cost
             var targetCost = maxDistance;
 
-            var targetDepth = CalculateTargetDepth(maxDepth, targetCost, lowestCost, maxDepthWithMaxCost);
+            var targetDepth = TargetDepthCalculator.CalculateTargetDepth(maxDepth, targetCost, lowestCost, maxDepthWithMaxCost);
 
             var routesByDepth = FindAllRoutes(from, to, targetDepth);
 
@@ -50,19 +50,6 @@ namespace RoutingLib.Engine
                 : routesByDepth.Where(p => p.Cost <= targetCost);
 
             return routes.ToList();
-        }
-
-        public static int CalculateTargetDepth(int? maxDepth, int targetCost, int lowestCost, int maxDepthInShortestRoutes)
-        {
-            var depthMultiplier = targetCost/lowestCost;
-
-            var targetDepth = depthMultiplier*(maxDepthInShortestRoutes);
-
-            if (maxDepth.HasValue && maxDepth <= targetDepth)
-            {
-                targetDepth = maxDepth.Value;
-            }
-            return targetDepth;
         }
 
         private static List<Route> FindAllRoutes(Node from, Node to, int? maxDepth = null)

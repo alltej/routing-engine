@@ -14,7 +14,7 @@ namespace RoutingLib.Tests
         {
             try
             {
-                var engine = new RouteEngine();
+                var engine = new RouteEngineV2();
                 engine.GetRoutes(null, Node.Create("A"));
             }
             catch (ArgumentException aex)
@@ -32,7 +32,7 @@ namespace RoutingLib.Tests
         {
             try
             {
-                var engine = new RouteEngine();
+                var engine = new RouteEngineV2();
                 engine.GetRoutes(Node.Create("A") , null);
             }
             catch (ArgumentException aex)
@@ -49,21 +49,21 @@ namespace RoutingLib.Tests
         [TestMethod]
         public void TargetDepthCalculatorTest_WithNullMaxDepth_ShouldBe_CalcDepth()
         {
-            var depth = RouteEngine.CalculateTargetDepth(null, 60, 38, 13);
+            var depth = TargetDepthCalculator.CalculateTargetDepth(null, 60, 38, 13);
             depth.Should().Be(13);
         }
 
         [TestMethod]
         public void TargetDepthCalculatorTest_WithMaxDepth_LT_CalcDepth()
         {
-            var depth = RouteEngine.CalculateTargetDepth(10, 60, 38, 13);
+            var depth = TargetDepthCalculator.CalculateTargetDepth(10, 60, 38, 13);
             depth.Should().Be(10);
         }
 
         [TestMethod]
         public void TargetDepthCalculatorTest_WithMaxDepth_GT_CalcDepth()
         {
-            var depth = RouteEngine.CalculateTargetDepth(15, 60, 38, 13);
+            var depth = TargetDepthCalculator.CalculateTargetDepth(15, 60, 38, 13);
             depth.Should().Be(13);
         }
         
