@@ -19,7 +19,7 @@ namespace RoutingLib.Tests.Req
             PrintOutput(result.Routes);
             
             var shortestCost = result.ShortestCost();
-            shortestCost.Should().Be(9);
+            shortestCost.Should().Be(27);
         }
 
         [TestMethod]
@@ -29,22 +29,10 @@ namespace RoutingLib.Tests.Req
             PrintOutput(result.Routes);
 
             var shortestCost = result.ShortestCost();
-            shortestCost.Should().Be(9);
+            shortestCost.Should().Be(27);
         }
 
-        [TestMethod]
-        public void T10_NumberOf_DifferentRoutes_With_LessThan_AGiven_Distance()
-        {
-            //1. get path with shortest cost
-            var maxDistance = 30;
-            var result = _routeEngine.GetRoutes(C, C, maxDistance, null);
 
-            PrintOutput(result.Routes);
-            Assert.AreEqual(9, result.Routes.Count);
-
-            var routes = result.Routes.Where(r => r.Cost < 30).ToList();
-            Assert.AreEqual(7, routes.Count);
-        }
     }
 
 }

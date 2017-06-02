@@ -15,14 +15,14 @@ namespace RoutingLib.Tests.Req
         public void T01_DistanceOfRoute_ABC()
         {
             var route = _routeEngine.BuildRouteFor(A, B, C);
-            route.Cost.Should().Be(9);
+            route.Cost.Should().Be(27);
             route.Stops.Should().Be(2);
         }
         [TestMethod]
         public void T02_DistanceOfRoute_Given_TwoNodes()
         {
             var route = _routeEngine.BuildRouteFor(A, D);
-            route.Cost.Should().Be(5);
+            route.Cost.Should().Be(15);
             route.Stops.Should().Be(1);
         }
 
@@ -30,7 +30,7 @@ namespace RoutingLib.Tests.Req
         public void T03_DistanceOfRoute_ADC()
         {
             var route = _routeEngine.BuildRouteFor(A, D, C);
-            route.Cost.Should().Be(13);
+            route.Cost.Should().Be(39);
             route.Stops.Should().Be(2);
         }
 
@@ -38,7 +38,7 @@ namespace RoutingLib.Tests.Req
         public void T04_DistanceOfRoute_Given_MultipleNodes()
         {
             var route = _routeEngine.BuildRouteFor(A, E, B, C, D);
-            route.Cost.Should().Be(22);
+            route.Cost.Should().Be(66);
             route.Stops.Should().Be(4);
         }
 

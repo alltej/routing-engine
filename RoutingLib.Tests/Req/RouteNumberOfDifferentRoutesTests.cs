@@ -15,13 +15,13 @@ namespace RoutingLib.Tests.Req
         public void T10_NumberOf_DifferentRoutes_With_LessThan_AGiven_Distance()
         {
             //1. get path with shortest cost
-            var maxDistance = 30;
+            var maxDistance = 90;
             var result = _routeEngine.GetRoutes(C, C, maxDistance, null);
 
             PrintOutput(result.Routes);
             Assert.AreEqual(9, result.Routes.Count);
 
-            var routes = result.Routes.Where(r => r.Cost < 30).ToList();
+            var routes = result.Routes.Where(r => r.Cost < 90).ToList();
             Assert.AreEqual(7, routes.Count);
         }
     }

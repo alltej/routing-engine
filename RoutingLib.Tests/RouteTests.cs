@@ -15,7 +15,7 @@ namespace RoutingLib.Tests
             var path = new PathV1(nodes);
             var route = Route.CreateFromPath(path);
             route.Stops.Should().Be(2);
-            route.Cost.Should().Be(9);
+            route.Cost.Should().Be(27);
             route.PathString.Should().Be("ABC");
         }
 
@@ -26,7 +26,7 @@ namespace RoutingLib.Tests
             var list = Route.GetTupleList(nodes);
             var route = Route.CreateFromTuples(list);
             route.Stops.Should().Be(2);
-            route.Cost.Should().Be(9);
+            route.Cost.Should().Be(27);
             route.PathString.Should().Be("ABC");
         }
 
@@ -37,7 +37,7 @@ namespace RoutingLib.Tests
 
             var route = Route.CreateFromNodes(nodes);
             route.Stops.Should().Be(2);
-            route.Cost.Should().Be(9);
+            route.Cost.Should().Be(27);
             route.PathString.Should().Be("ABC");
         }
 
