@@ -69,15 +69,18 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTests.cs" />
+    <Compile Include="Req\RouteDistanceTests.cs" />
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="GraphTests.cs" />
     <Compile Include="PerfTests\V2\GetRoutesBetweenTests.cs" />
+    <Compile Include="Req\RouteNumberOfDifferentRoutesTests.cs" />
+    <Compile Include="Req\RouteLenghtOfShortestRouteTests.cs" />
     <Compile Include="RouteTests.cs" />
     <Compile Include="PerfTests\BaseTests.cs" />
     <Compile Include="PerfTests\V1\GetRoutesBetweenTests.cs" />
     <Compile Include="RouteEngineTests.cs" />
     <Compile Include="NodeTests.cs" />
-    <Compile Include="CodingAssignmentTests.cs" />
+    <Compile Include="Req\RouteNumberOfTripsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +89,7 @@
       <Name>RoutingLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

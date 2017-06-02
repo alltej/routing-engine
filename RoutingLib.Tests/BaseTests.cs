@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RoutingLib.Tests
 {
@@ -29,6 +31,15 @@ namespace RoutingLib.Tests
             C.AddEdge(Edge.Create(E, 2));
             E.AddEdge(Edge.Create(B, 3));
             A.AddEdge(Edge.Create(E, 7));
+        }
+
+        protected void PrintOutput(IReadOnlyCollection<Route> pathOutput)
+        {
+            Console.WriteLine($"# Paths: {pathOutput.Count}");
+            foreach (var tuple in pathOutput)
+            {
+                Console.WriteLine($"{tuple.PathString}; Cost: {tuple.Cost}; Stops: {tuple.Stops}");
+            }
         }
     }
 }
