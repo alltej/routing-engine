@@ -38,9 +38,3 @@ Enter 9 to clear screen
    sample data file (RoutingData.txt).
 
 7. Enter input data from console when prompted.
-   
-
-
-   ****This solution was submitted by Allan Tejano for coding assignment/problem #1 (Trains) for Thoughtworks****
-
-
